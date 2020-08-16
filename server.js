@@ -3,12 +3,25 @@ const express = require('express');
 
 const app = express();
 
-app.get("/getRestaurants", (req, res) => {
-  res.json({
+// get all restaurants
+app.get("/api/v1/restaurants", (req, res) => {
+  res.status(200).json({
     status: "success",
-    restaurant: "mcdonalds"
+    data: {
+      restaurant: ["mcdonalds", "wendys"]
+    },
   })
 });
+
+// get a restaurant
+app.get("/api/v1/restaurants/:id", (req, res) => {
+  
+})
+
+// create a restaurant
+app.post("/api/v1/restaurants", (req, res) => {
+
+})
 
 const port = process.env.PORT || 5000;
 
