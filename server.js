@@ -10,7 +10,7 @@ app.use(express.json());
 app.get("/api/v1/restaurants", async (req, res) => {
   try {
     const results = await db.query("select * from restaurants");
-    console.log(results)
+    
     res.status(200).json({
     status: "success",
     results: results.rows.length,
@@ -69,10 +69,17 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
   }
 })
 
-app.delete("/api/v1/restaurants/:id", (req, res) => {
-  res.status(204).json({
-    status: "delete success"
-  })
+app.delete("/api/v1/restaurants/:id", async (req, res) => {
+  try {
+    const results = await db.query("DELETE FROM restaurants where id = $1", [req.params.id]);
+
+    res.status(204).json({
+      status: "delete success"
+    })
+  } catch (err) {
+    console.log(err)
+  }
+  
 })
 
 
